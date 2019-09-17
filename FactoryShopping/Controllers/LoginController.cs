@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using BLL.UserAccount;
 using DataAccessLayer.AccessModel;
 using DataAccessLayer.FactoryShoppingModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -26,14 +28,17 @@ namespace FactoryShopping.Controllers
             _config = config;
         }
 
-        private string GenerateJSONWebToken()
+        private string GenerateJSONWebToken(int role)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+            var claims = new[] {
+                new Claim(ClaimTypes.Role,role.ToString())
+            };
 
             var token = new JwtSecurityToken(_config["Jwt:Issuer"],
               _config["Jwt:Issuer"],
-              null,
+              claims,
               expires: DateTime.Now.AddMinutes(120),
               signingCredentials: credentials);
 
@@ -45,18 +50,28 @@ namespace FactoryShopping.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] Login value)
         {
-           if(loginService.checkUser(value) ==1) //admin
-            {
-                var tokenstring = GenerateJSONWebToken();
-                return Ok(new { token= "tokenstring", userCode=1 });
-            }
+            var roleId = loginService.checkUser(value);
+            var tokenstring = GenerateJSONWebToken(roleId);
+            return Ok(new { token = tokenstring, role = roleId});
+            //if (roleId == 1) //admin
+            //{
+            //    var tokenstring = GenerateJSONWebToken(roleId);
+            //    return Ok(new { token = tokenstring });
+            //}
 
-            else if (loginService.checkUser(value) == 2) //user
-            {
-                var tokenstring = GenerateJSONWebToken();
-                return Ok(new { token = "tokenstring", userCode = 2 });
-            }
-            return Ok(new { userCode = 2 });
+            //else if (loginService.checkUser(value) == 2) //user
+            //{
+            //    var tokenstring = GenerateJSONWebToken();
+            //    return Ok(new { token = tokenstring});
+            //}
+            //return Ok(new { userCode = 2 });
+        }
+
+        [HttpGet("api/check")]
+        [Authorize(Roles ="1")]
+        public string CheckAuthorization()
+        {
+            return "Successfully Authenticated";
         }
 
     

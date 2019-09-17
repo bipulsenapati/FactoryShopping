@@ -28,20 +28,24 @@ namespace BLL.UserAccount
             {
                 try
                 {
-                    if (valid.RoleId == 2)//user
-                    {
-                        if (chkuser.Password != valid.Password)
-                            return 0; //invalid password
-                        else
-                            return 2; //user
-                    }
+                    if (chkuser.Password != valid.Password)
+                        return 0; //invalid password
                     else
-                    {
-                        if (chkuser.Password != valid.Password)
-                            return 0; //invalid password
-                        else
-                            return 1;//admin
-                    }
+                        return valid.RoleId; //user
+                    //if (valid.RoleId == 2)//user
+                    //{
+                    //    if (chkuser.Password != valid.Password)
+                    //        return 0; //invalid password
+                    //    else
+                    //        return Rol; //user
+                    //}
+                    //else
+                    //{
+                    //    if (chkuser.Password != valid.Password)
+                    //        return 0; //invalid password
+                    //    else
+                    //        return 1;//admin
+                    //}
 
                 }
                 catch (Exception ex)
@@ -56,19 +60,19 @@ namespace BLL.UserAccount
 
 
 
-        private string GenerateJSONWebToken(User userInfo)
-        {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+        //private string GenerateJSONWebToken(User userInfo)
+        //{
+        //    var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+        //    var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
-            var token = new JwtSecurityToken(_config["Jwt:Issuer"],
-              _config["Jwt:Issuer"],
-              null,
-              expires: DateTime.Now.AddMinutes(120),
-              signingCredentials: credentials);
+        //    var token = new JwtSecurityToken(_config["Jwt:Issuer"],
+        //      _config["Jwt:Issuer"],
+        //      null,
+        //      expires: DateTime.Now.AddMinutes(120),
+        //      signingCredentials: credentials);
 
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
+        //    return new JwtSecurityTokenHandler().WriteToken(token);
+        //}
 
     }
 }

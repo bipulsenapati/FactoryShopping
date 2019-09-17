@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using DataAccessLayer.FactoryShoppingModel;
 using BLL.ProductLayer;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FactoryShopping.Controllers
 {
@@ -33,6 +34,7 @@ namespace FactoryShopping.Controllers
 
         // PUT: api/Products/5
         [HttpPut]
+        [Authorize(Roles = "1")]
         public bool PutProduct(Product product)
         {
             return ProductService.updateProduct(product);
@@ -42,6 +44,7 @@ namespace FactoryShopping.Controllers
 
         // POST: api/Products
         [HttpPost]
+        [Authorize(Roles = "1")]
         public bool PostProduct(Product product)
         {
              return ProductService.saveProduct(product);
@@ -50,6 +53,7 @@ namespace FactoryShopping.Controllers
 
         // DELETE: api/Products/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "1")]
         public bool DeleteProduct(int id)
         {
             return ProductService.deleteProductById(id);
