@@ -11,7 +11,7 @@ namespace DataContext
         { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
-           optionsBuilder.UseSqlServer(@"Server=XIPL9397\SQLEXPRESS;Database=ShopDB;Trusted_Connection=True;");
+           optionsBuilder.UseSqlServer(@"Server=XIPL9397\SQLEXPRESS;Database=velaEngineer;Trusted_Connection=True;");
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -22,5 +22,11 @@ namespace DataContext
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<Cart> cart { get; set; }
+        public DbSet<OrderDetails> orderDetail { get; set; }
+        public DbSet<Address> address { get; set; }
+        public DbSet<AddressType> addressType { get; set; }
+        public DbSet<Feedback> feedback { get; set; }
+        public DbSet<Wishlist> wishlist { get; set; }
     }
 }

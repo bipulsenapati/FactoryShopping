@@ -71,7 +71,7 @@ namespace FactoryShopping
             });
 
             services.AddTransient<IUserRepository, UserService>();
-            services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IProductRepository, ProductService>();
             services.AddTransient<ILoginRepository, LoginService>();
         }
 

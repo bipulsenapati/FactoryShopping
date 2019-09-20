@@ -7,10 +7,10 @@ using System.Linq;
 
 namespace BLL.ProductLayer
 {
-    public class ProductService : IProductService
+    public class ProductService : IProductRepository
     {
         private readonly FactoryShoppingDataContext _pcontext;
-        FactoryShoppingDataContext db = new FactoryShoppingDataContext();
+      
         public ProductService(FactoryShoppingDataContext pcontext)
         {
             _pcontext = pcontext;
@@ -53,8 +53,8 @@ namespace BLL.ProductLayer
         {
             try
             {
-                db.Products.Add(newproduct);
-                db.SaveChanges();
+                _pcontext.Products.Add(newproduct);
+                _pcontext.SaveChanges();
                 return true;
             }
             catch (NotImplementedException ex)
@@ -68,14 +68,14 @@ namespace BLL.ProductLayer
         {
             try
             {
-                var updatedprod = db.Products.Where(p => p.PId == newproduct.PId).FirstOrDefault();
+                var updatedprod = _pcontext.Products.Where(p => p.PId == newproduct.PId).FirstOrDefault();
                 updatedprod.Name = newproduct.Name;
                 updatedprod.Price = newproduct.Price;
                 updatedprod.Quantity = newproduct.Quantity;
                 updatedprod.Description = newproduct.Description;
                 updatedprod.Detail_Description = newproduct.Detail_Description;
                 updatedprod.CategoryId = newproduct.CategoryId;
-                db.SaveChanges();
+                _pcontext.SaveChanges();
                 return true;
             }
             catch (Exception ex)
@@ -87,7 +87,7 @@ namespace BLL.ProductLayer
 
         public bool checkvalid(int id)
         {
-            var checkid = db.Products.Where(i => i.PId == id).FirstOrDefault();
+            var checkid = _pcontext.Products.Where(i => i.PId == id).FirstOrDefault();
             if (checkid == null)
                 return false;
             else

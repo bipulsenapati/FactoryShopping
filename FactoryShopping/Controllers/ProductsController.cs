@@ -10,9 +10,9 @@ namespace FactoryShopping.Controllers
     [ApiController]
     public class ProductsController : ControllerBase
     {
-        private readonly IProductService ProductService;
+        private readonly IProductRepository ProductService;
 
-        public ProductsController(IProductService _ProductService)
+        public ProductsController(IProductRepository _ProductService)
         {
             ProductService = _ProductService;
         }

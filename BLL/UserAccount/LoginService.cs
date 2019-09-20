@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Text;
-using DataAccessLayer.AccessModel;
-using DataAccessLayer.FactoryShoppingModel;
+﻿using DataAccessLayer.AccessModel;
 using DataContext;
 using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Linq;
 
 namespace BLL.UserAccount
 {
@@ -22,7 +17,7 @@ namespace BLL.UserAccount
 
         public int checkUser(Login chkuser)
         {
-                                          
+
             var valid = db.Users.Where(x => x.Email == chkuser.Email).FirstOrDefault();
             if (valid != null)
             {
@@ -32,47 +27,16 @@ namespace BLL.UserAccount
                         return 0; //invalid password
                     else
                         return valid.RoleId; //user
-                    //if (valid.RoleId == 2)//user
-                    //{
-                    //    if (chkuser.Password != valid.Password)
-                    //        return 0; //invalid password
-                    //    else
-                    //        return Rol; //user
-                    //}
-                    //else
-                    //{
-                    //    if (chkuser.Password != valid.Password)
-                    //        return 0; //invalid password
-                    //    else
-                    //        return 1;//admin
-                    //}
-
                 }
                 catch (Exception ex)
                 {
                     throw ex;
                 }
-             
+
             }
             else
                 return 0;
         }
-
-
-
-        //private string GenerateJSONWebToken(User userInfo)
-        //{
-        //    var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-        //    var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
-        //    var token = new JwtSecurityToken(_config["Jwt:Issuer"],
-        //      _config["Jwt:Issuer"],
-        //      null,
-        //      expires: DateTime.Now.AddMinutes(120),
-        //      signingCredentials: credentials);
-
-        //    return new JwtSecurityTokenHandler().WriteToken(token);
-        //}
 
     }
 }

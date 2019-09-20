@@ -1,11 +1,9 @@
 ﻿using DataAccessLayer.FactoryShoppingModel;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace BLL.ProductLayer
 {
-   public interface IProductService
+    public interface IProductRepository
     {
         List<Product> getallproduct();
         Product getProductById(int id); // get by id

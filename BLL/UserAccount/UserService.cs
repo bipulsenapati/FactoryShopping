@@ -10,7 +10,6 @@ namespace BLL.UserAccount
     public class UserService : IUserRepository
     {
         private readonly FactoryShoppingDataContext _fcontext;
-        FactoryShoppingDataContext db = new FactoryShoppingDataContext();
         public UserService(FactoryShoppingDataContext fcontext)
         {
             _fcontext = fcontext;
@@ -45,14 +44,14 @@ namespace BLL.UserAccount
 
         public IEnumerable<User> getUserById(int id)
         {
-            var checkid = from d in db.Users where d.UserId == id select d;
+            var checkid = from d in _fcontext.Users where d.UserId == id select d;
             return checkid;
         }
 
         public bool saveUser(User newuser)
         {
-            var evalid = db.Users.Where(x => x.Email == newuser.Email).FirstOrDefault();
-            if (evalid == null)
+            var evalid = _fcontext.Users.Where(x => x.Email == newuser.Email).FirstOrDefault();
+            if (evalid == null) //if email exist in db or not if not then enter
             {
                 try
                 {
@@ -73,7 +72,7 @@ namespace BLL.UserAccount
 
         public bool checkvalid(int id)
         {
-            var checkid = db.Users.Where(i => i.UserId == id).FirstOrDefault();
+            var checkid = _fcontext.Users.Where(i => i.UserId == id).FirstOrDefault();
             if (checkid == null)
                 return false;
             else
@@ -86,14 +85,14 @@ namespace BLL.UserAccount
             {
                 try
                 {
-                    var udata = db.Users.Where(u => u.UserId == id).FirstOrDefault();
+                    var udata = _fcontext.Users.Where(u => u.UserId == id).FirstOrDefault();
                     udata.FirstName = user.FirstName;
                     udata.LastName = user.LastName;
                     udata.Email = user.Email;
                     udata.Password = user.Password;
                     udata.Profile_Image = user.Profile_Image;
                     udata.Mobile = user.Mobile;
-                    db.SaveChanges();
+                    _fcontext.SaveChanges();
                     return true;
                 }
 

@@ -51,29 +51,15 @@ namespace FactoryShopping.Controllers
         public IActionResult Post([FromBody] Login value)
         {
             var roleId = loginService.checkUser(value);
-            var tokenstring = GenerateJSONWebToken(roleId);
-            return Ok(new { token = tokenstring, role = roleId});
-            //if (roleId == 1) //admin
-            //{
-            //    var tokenstring = GenerateJSONWebToken(roleId);
-            //    return Ok(new { token = tokenstring });
-            //}
+            if(roleId != 0)
+            {
+                var tokenstring = GenerateJSONWebToken(roleId);
+                return Ok(new { token = tokenstring, role = roleId });
+            }
+            return BadRequest();
+         }
 
-            //else if (loginService.checkUser(value) == 2) //user
-            //{
-            //    var tokenstring = GenerateJSONWebToken();
-            //    return Ok(new { token = tokenstring});
-            //}
-            //return Ok(new { userCode = 2 });
-        }
-
-        [HttpGet("api/check")]
-        [Authorize(Roles ="1")]
-        public string CheckAuthorization()
-        {
-            return "Successfully Authenticated";
-        }
-
+       
     
 
     }
