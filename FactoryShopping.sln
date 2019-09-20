@@ -5,11 +5,11 @@ VisualStudioVersion = 15.0.28307.757
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FactoryShopping", "FactoryShopping\FactoryShopping.csproj", "{CE7D097B-8F0E-4BFE-B712-3FD2F7AB67B3}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.csproj", "{4532FE2F-B064-4F6A-937E-B6EB8ADAFABE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FactoryShopping.Models", "DataAccessLayer\FactoryShopping.Models.csproj", "{4532FE2F-B064-4F6A-937E-B6EB8ADAFABE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BLL", "BLL\BLL.csproj", "{580B9081-2DF6-42BB-9C60-C420B6837390}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FactoryShopping.Domain", "BLL\FactoryShopping.Domain.csproj", "{580B9081-2DF6-42BB-9C60-C420B6837390}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataContext", "DataContext\DataContext.csproj", "{DF1271AA-9254-463B-BE81-A805AA672597}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FactoryShopping.Context", "DataContext\FactoryShopping.Context.csproj", "{DF1271AA-9254-463B-BE81-A805AA672597}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

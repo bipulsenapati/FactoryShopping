@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj" />
-    <ProjectReference Include="..\DataContext\DataContext.csproj" />
+    <ProjectReference Include="..\DataAccessLayer\FactoryShopping.Models.csproj" />
+    <ProjectReference Include="..\DataContext\FactoryShopping.Context.csproj" />
   </ItemGroup>
 
 </Project>
