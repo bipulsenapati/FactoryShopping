@@ -73,7 +73,6 @@ namespace BLL.ProductLayer
                 updatedprod.Price = newproduct.Price;
                 updatedprod.Quantity = newproduct.Quantity;
                 updatedprod.Description = newproduct.Description;
-                updatedprod.Detail_Description = newproduct.Detail_Description;
                 updatedprod.CategoryId = newproduct.CategoryId;
                 _pcontext.SaveChanges();
                 return true;

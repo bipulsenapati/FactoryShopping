@@ -4,14 +4,16 @@ using DataContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FactoryShopping.Migrations
 {
     [DbContext(typeof(FactoryShoppingDataContext))]
-    partial class FactoryShoppingDataContextModelSnapshot : ModelSnapshot
+    [Migration("20190922074702_datachange")]
+    partial class datachange
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,8 +67,6 @@ namespace FactoryShopping.Migrations
                     b.Property<int>("CartId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CartDate");
 
                     b.Property<int>("OrderQuantity");
 
@@ -228,8 +228,6 @@ namespace FactoryShopping.Migrations
                         .HasColumnType("decimal(10,2)");
 
                     b.Property<int>("UserId");
-
-                    b.Property<DateTime>("WishDate");
 
                     b.Property<int>("WishQuantity");
 

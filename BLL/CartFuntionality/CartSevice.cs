@@ -31,6 +31,27 @@ namespace BLL.CartFuntionality
             else
                 return false;
         }
+
+        //public bool deleteCartitem(int id)
+        //{
+          
+        //}
+
+        //public bool UpdateCart(Cart updateCart)
+        //{
+        //    try
+        //    {
+        //        var updatedcart = _cartcontext.Products.Where(p => p.PId == updateCart.PId).FirstOrDefault();
+        //        updateCart.OrderQuantity = updateCart.OrderQuantity
+        //        _cartcontext.SaveChanges();
+        //        return true;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw ex;
+        //    }
+         
+        //}
     }
 }
 

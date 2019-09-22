@@ -10,10 +10,11 @@ namespace DataAccessLayer.FactoryShoppingModel
     {
         [Key]
         public int PId { get; set; }
+        [Required(ErrorMessage ="Product Name is Required")]
         public string Name { get; set; }
         public string Description { get; set; }
-        public string Detail_Description { get; set; }
-        public int Price { get; set; }
+        [Column(TypeName = "decimal(10,2)")]
+        public decimal Price { get; set; }
         public int Quantity { get; set; }
         public string ImagePath { get; set; }
         [ForeignKey("Category")]

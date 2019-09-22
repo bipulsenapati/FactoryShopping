@@ -21,8 +21,10 @@ namespace DataAccessLayer.FactoryShoppingModel
 
         public virtual User Users { get; set; }
 
-        public int Price { get; set; }
+        [Column(TypeName = "decimal(10,2)")]
+        public decimal Price { get; set; }
         public int OrderQuantity { get; set; }
+        public DateTime CartDate { get; set; }
 
     }
 }
