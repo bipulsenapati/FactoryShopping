@@ -14,12 +14,68 @@ namespace BLL.CartFuntionality
         }
         public bool AddToCart(Cart newCartItem)
         {
-            var cartItem = _cartcontext.cart.Where(x => x.PId == newCartItem.PId).FirstOrDefault();
-            if (cartItem == null)
+            var valid = _cartcontext.cart.Where(u => u.PId == newCartItem.PId && u.UserId == newCartItem.UserId).FirstOrDefault();
+            
+            if (valid == null)
             {
                 try
                 {
                     _cartcontext.Add(newCartItem);
+                    _cartcontext.SaveChanges();
+                    var cartitem = _cartcontext.cart.Where(c => c.CartId == newCartItem.CartId).FirstOrDefault();
+                    var prod = _cartcontext.Products.Where(u => u.PId == newCartItem.PId).FirstOrDefault();
+                    var data = from prod_img in _cartcontext.Products
+                               join cart_val in _cartcontext.cart
+                               on prod_img.PId equals cart_val.PId
+                               where cart_val.UserId == cartitem.UserId
+                               select new
+                               {
+                                   productName=prod_img.Name,
+                                   productImage=prod_img.ImagePath
+                               };
+                    
+                    cartitem.Price = prod.Price;
+                    cartitem.Amount = cartitem.Price * cartitem.OrderQuantity;                    
+                    _cartcontext.SaveChanges();
+                }
+                catch (NullReferenceException ex)
+                {
+                    throw ex;
+                }
+                return true;
+            }
+            else if(valid != null)
+            {
+                valid.OrderQuantity += newCartItem.OrderQuantity;
+                valid.Amount = valid.Amount + (newCartItem.OrderQuantity * valid.Price);
+                _cartcontext.SaveChanges();
+                return true;
+            }
+            else
+                return false;
+        }
+        public bool updateQty(Cart updateCart)
+        {
+            var valid = _cartcontext.cart.Where(u => u.PId == updateCart.PId && u.UserId == updateCart.UserId).FirstOrDefault();
+            if (valid!=null)
+            {
+                valid.OrderQuantity += updateCart.OrderQuantity;
+                valid.Amount = valid.Amount - (updateCart.OrderQuantity * valid.Price);
+                _cartcontext.SaveChanges();
+                return true;
+            }
+            else
+                return false;
+        }
+
+        public bool deleteCartitem(int uid,int pid)
+        {
+            if (checkvaliduser(uid))
+            {
+                try
+                {
+                    var prod = _cartcontext.Products.Find(pid);
+                    _cartcontext.Products.Remove(prod);
                     _cartcontext.SaveChanges();
                 }
                 catch (Exception ex)
@@ -29,29 +85,21 @@ namespace BLL.CartFuntionality
                 return true;
             }
             else
+            {
                 return false;
+            }
+
+        }
+        public bool checkvaliduser(int id)
+        {
+            var checkid = _cartcontext.Users.Where(i => i.UserId == id).FirstOrDefault();
+            if (checkid == null)
+                return false;
+            else
+                return true;
         }
 
-        //public bool deleteCartitem(int id)
-        //{
-          
-        //}
-
-        //public bool UpdateCart(Cart updateCart)
-        //{
-        //    try
-        //    {
-        //        var updatedcart = _cartcontext.Products.Where(p => p.PId == updateCart.PId).FirstOrDefault();
-        //        updateCart.OrderQuantity = updateCart.OrderQuantity
-        //        _cartcontext.SaveChanges();
-        //        return true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
-         
-        //}
+        
     }
 }
 

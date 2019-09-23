@@ -26,5 +26,8 @@ namespace DataAccessLayer.FactoryShoppingModel
         public int OrderQuantity { get; set; }
         public DateTime CartDate { get; set; }
 
+        [Column(TypeName = "decimal(10,2)")]
+        public decimal Amount { get; set; }
+
     }
 }

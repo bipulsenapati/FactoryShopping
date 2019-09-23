@@ -1,4 +1,5 @@
-﻿using BLL.ProductLayer;
+﻿using BLL.CartFuntionality;
+using BLL.ProductLayer;
 using BLL.UserAccount;
 using DataContext;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -73,6 +74,7 @@ namespace FactoryShopping
             services.AddTransient<IUserRepository, UserService>();
             services.AddTransient<IProductRepository, ProductService>();
             services.AddTransient<ILoginRepository, LoginService>();
+            services.AddTransient<ICartRepository, CartSevice>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

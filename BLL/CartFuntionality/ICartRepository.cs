@@ -7,8 +7,8 @@ namespace BLL.CartFuntionality
 {
     public interface ICartRepository
     {
-       bool AddToCart(Cart newCartItem);
-        //bool deleteCartitem(Cart id);
-        //bool UpdateCart(Cart updateCart); //put
+        bool AddToCart(Cart newCartItem);
+        bool deleteCartitem(int id);
+        bool updateQty(Cart updateCart); //put
     }
 }
