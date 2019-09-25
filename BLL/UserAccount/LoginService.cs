@@ -1,4 +1,5 @@
 ﻿using DataAccessLayer.AccessModel;
+using DataAccessLayer.FactoryShoppingModel;
 using DataContext;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -36,6 +37,14 @@ namespace BLL.UserAccount
             }
             else
                 return 0;
+        }
+
+        public int getUserId(Login val)
+        {
+            var udata = (from user in db.Users
+                         where user.Email == val.Email
+                         select user.UserId).FirstOrDefault();
+            return udata;
         }
 
     }

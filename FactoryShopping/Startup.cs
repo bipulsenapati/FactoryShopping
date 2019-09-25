@@ -43,12 +43,6 @@ namespace FactoryShopping
                     .AllowAnyHeader()
                     .AllowCredentials());
 
-
-                //options.AddPolicy("MyAllowSpecificOrigins",
-                //builder =>
-                //{
-                //    builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin().AllowCredentials();
-                //});
             });
 
             services.AddSwaggerGen(c =>

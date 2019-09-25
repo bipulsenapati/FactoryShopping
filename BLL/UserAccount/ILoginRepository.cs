@@ -9,6 +9,7 @@ namespace BLL.UserAccount
     public interface ILoginRepository
     {
         int checkUser(Login user); //post
+        int getUserId(Login val);
 
     }
 }

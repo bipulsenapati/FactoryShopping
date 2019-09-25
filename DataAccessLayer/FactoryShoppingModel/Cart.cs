@@ -28,6 +28,10 @@ namespace DataAccessLayer.FactoryShoppingModel
 
         [Column(TypeName = "decimal(10,2)")]
         public decimal Amount { get; set; }
+        public string ProductName { get; set; }
+        public string ProductImage { get; set; }
+        [Column(TypeName = "decimal(10,2)")]
+        public decimal CartTotal { get; set; }
 
     }
 }

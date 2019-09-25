@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using BLL.CartFuntionality;
+﻿using BLL.CartFuntionality;
 using DataAccessLayer.FactoryShoppingModel;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
 
 namespace FactoryShopping.Controllers
 {
@@ -19,38 +16,49 @@ namespace FactoryShopping.Controllers
         {
             cartService = _cartService;
         }
-        // GET: api/Cart
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
-
-        //// GET: api/Cart/5
-        //[HttpGet("{id}", Name = "Get")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
-
-        // POST: api/Cart
-        [HttpPost]
-        public bool Post([FromBody] Cart value)
+        //  GET: api/Cart
+        [HttpGet("{userId}")]
+        public IEnumerable<Cart> List(int userId)
         {
+            return cartService.GetCarts(userId);
+        }
+
+        // POST: api/Cart/addtobag
+        [HttpPost("addtobag")]
+        public bool AddToCart([FromBody] Cart value) // add data to bag
+        {
+            value.Amount = value.Price * value.OrderQuantity;
+            value.CartDate = DateTime.Now.ToUniversalTime();
             return cartService.AddToCart(value);
         }
-
-        // PUT: api/Cart/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody] string value)
-        //{
-        //}
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public bool Delete(int id)
+        //  GET: api/Cart
+        [HttpGet("getcartbyproductid")]
+        public Cart GetCartByProductId(int productId, int userId)
         {
-            return cartService.deleteCartitem(id);
+            return cartService.GetCartByProductId(productId, userId);
         }
+
+        // Delete: api/Cart/deleteFromCart
+        [HttpDelete("deleteFromCart/{cartId}")]
+        public void DeleteRowCart([FromRoute]int cartId) // delete row in a cart 
+        {
+            cartService.DeleteCart(cartId);
+        }
+
+        //Delete: api/Cart/deletebyqty
+        [HttpDelete("emptycart/{userId}")]
+        public bool EmptyCart([FromRoute]int userId)// delete by quantity
+        {
+            cartService.EmptyCart(userId);
+            return true;
+        }
+
+        //POST: api/Cart/totalamtinCart
+        [HttpGet("updatequantitytocart/{cartId}/{quantity}")]
+        public void UpdateQuantityToCart([FromRoute] int cartId, [FromRoute] int quantity) //add total amount in cart
+        {
+            cartService.UpdateQuantityToCart(cartId, quantity);
+        }
+
     }
 }

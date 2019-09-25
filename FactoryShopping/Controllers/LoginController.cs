@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Text;
 using BLL.UserAccount;
 using DataAccessLayer.AccessModel;
+using DataAccessLayer.FactoryShoppingModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -45,14 +46,17 @@ namespace FactoryShopping.Controllers
         public IActionResult Post([FromBody] Login value)
         {
             var roleId = loginService.checkUser(value);
+            var user = loginService.getUserId(value);
             if(roleId != 0)
             {
                 var tokenstring = GenerateJSONWebToken(roleId);
-                return Ok(new { token = tokenstring, role = roleId });
+                return Ok(new { token = tokenstring, role = roleId, userId = user});
             }
             else
             return BadRequest(new { message = "Username & Password is Incorrect"});
          }
+
+
 
        
     
