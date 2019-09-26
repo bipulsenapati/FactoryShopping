@@ -30,18 +30,18 @@ namespace FactoryShopping.Controllers
             return userService.getAllUsers();
         }
 
-        // GET: api/User/5
-        [HttpGet("{id}", Name = "Get")]
+        // GET: api/User/id
+        [HttpGet("{id}")]
         public IEnumerable<User> Get(int id)
         {
             return userService.getUserById(id);
         }
 
         // PUT: api/User/5
-        [HttpPut("{id}")]
-        public bool Put(int id, User value)
+        [HttpPut]
+        public bool Put(User value)
         {
-            return userService.updateUser(id, value);
+            return userService.updateUser(value.UserId, value);
         }
 
         // DELETE: api/ApiWithActions/5

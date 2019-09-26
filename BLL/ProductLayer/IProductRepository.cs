@@ -13,5 +13,6 @@ namespace BLL.ProductLayer
         bool deleteProductById(int id); //Delete user by id 
 
         bool updateProduct(Product newproduct); //put
+        IEnumerable<Product> GetProductsByCategoryId(int categoryId);
     }
 }

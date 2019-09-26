@@ -92,5 +92,11 @@ namespace BLL.ProductLayer
             else
                 return true;
         }
+
+
+        public IEnumerable<Product> GetProductsByCategoryId(int categoryId)
+        {
+            return _pcontext.Products.Where(p => p.CategoryId == categoryId);
+        }
     }
 }

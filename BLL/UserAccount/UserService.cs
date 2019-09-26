@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer.FactoryShoppingModel;
 using DataContext;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -92,6 +93,8 @@ namespace BLL.UserAccount
                     udata.Password = user.Password;
                     udata.Profile_Image = user.Profile_Image;
                     udata.Mobile = user.Mobile;
+                    udata.Gender = user.Gender;
+                    //_fcontext.Entry(user).State = EntityState.Modified;
                     _fcontext.SaveChanges();
                     return true;
                 }

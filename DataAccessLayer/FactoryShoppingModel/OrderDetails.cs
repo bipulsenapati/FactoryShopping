@@ -15,6 +15,11 @@ namespace DataAccessLayer.FactoryShoppingModel
 
         public virtual Cart cart { get; set; }
 
+        // orr
+        //[ForeignKey("User")]
+        //public int UserId { get; set; }
+        //public virtual User Users { get; set; }
+
         public string PaymentMode { get; set; }
 
         public DateTime orderDate { get; set; }

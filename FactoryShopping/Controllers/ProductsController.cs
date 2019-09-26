@@ -58,6 +58,14 @@ namespace FactoryShopping.Controllers
         {
             return ProductService.deleteProductById(id);
         }
+     
 
+        [HttpGet("getproductsbycategoryid/{id}")]
+        public IActionResult GetProductByCategoryId(int id)
+        {
+            var res = ProductService.GetProductsByCategoryId(id);
+            return Ok(res);
+        }
+                          
     }
 }
