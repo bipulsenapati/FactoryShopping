@@ -1,12 +1,9 @@
-﻿using DataAccessLayer.FactoryShoppingModel;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FactoryShopping.Models.FactoryShoppingModel;
 
 namespace FactoryShopping.Domain.Order
 {
     public interface IAddressRepository
     {
-        bool saveAddress(Address newAddress); //post  
+        bool saveAddress(Address_Checkout newAddress); //post  
     }
 }

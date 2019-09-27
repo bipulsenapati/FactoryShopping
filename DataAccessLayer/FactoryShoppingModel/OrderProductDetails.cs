@@ -14,9 +14,7 @@ namespace FactoryShopping.Models.FactoryShoppingModel
 
         [ForeignKey("OrderDetail")]
         public int OrderId { get; set; }
-        public virtual OrderDetails orderDetail { get; set; }
-
-
+        //public virtual OrderDetails orderDetail { get; set; }
         [ForeignKey("Product")]
         public int PId { get; set; }
 

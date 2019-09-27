@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DataAccessLayer.FactoryShoppingModel;
+using FactoryShopping.Domain.Order;
+using FactoryShopping.Models.FactoryShoppingModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,36 +14,44 @@ namespace FactoryShopping.Controllers
     [ApiController]
     public class AddressController : ControllerBase
     {
-        // GET: api/Address
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly IAddressRepository AddressService;
+
+        public AddressController(IAddressRepository _AddressService)
         {
-            return new string[] { "value1", "value2" };
+            AddressService = _AddressService;
         }
 
-        // GET: api/Address/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
-        {
-            return "value";
-        }
+        // GET: api/Address
+        //[HttpGet]
+        //public IEnumerable<string> Get()
+        //{
+        //    return new string[] { "value1", "value2" };
+        //}
+
+        //// GET: api/Address/5
+        //[HttpGet("{id}")]
+        //public string Get(int id)
+        //{
+        //    return "value";
+        //}
 
         // POST: api/Address
         [HttpPost]
-        public void Post([FromBody] string value)
+        public bool Post(Address_Checkout addrs)
         {
+            return AddressService.saveAddress(addrs);
         }
 
         // PUT: api/Address/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody] string value)
+        //{
+        //}
 
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        //// DELETE: api/ApiWithActions/5
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //}
     }
 }

@@ -19,35 +19,6 @@ namespace FactoryShopping.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("DataAccessLayer.FactoryShoppingModel.Address", b =>
-                {
-                    b.Property<int>("AddressId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AdMobile");
-
-                    b.Property<string>("AdName");
-
-                    b.Property<string>("AddressTypeID");
-
-                    b.Property<string>("AlternetAdMobile");
-
-                    b.Property<string>("City");
-
-                    b.Property<string>("State");
-
-                    b.Property<string>("Street");
-
-                    b.Property<int>("ZipCode");
-
-                    b.HasKey("AddressId");
-
-                    b.HasIndex("AddressTypeID");
-
-                    b.ToTable("address");
-                });
-
             modelBuilder.Entity("DataAccessLayer.FactoryShoppingModel.AddressType", b =>
                 {
                     b.Property<string>("AddressTypeID")
@@ -128,29 +99,6 @@ namespace FactoryShopping.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("feedback");
-                });
-
-            modelBuilder.Entity("DataAccessLayer.FactoryShoppingModel.OrderDetails", b =>
-                {
-                    b.Property<int>("OrderId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AddressId");
-
-                    b.Property<int>("CartId");
-
-                    b.Property<string>("PaymentMode");
-
-                    b.Property<DateTime>("orderDate");
-
-                    b.HasKey("OrderId");
-
-                    b.HasIndex("AddressId");
-
-                    b.HasIndex("CartId");
-
-                    b.ToTable("orderDetail");
                 });
 
             modelBuilder.Entity("DataAccessLayer.FactoryShoppingModel.Product", b =>
@@ -252,11 +200,35 @@ namespace FactoryShopping.Migrations
                     b.ToTable("wishlist");
                 });
 
-            modelBuilder.Entity("DataAccessLayer.FactoryShoppingModel.Address", b =>
+            modelBuilder.Entity("FactoryShopping.Models.FactoryShoppingModel.Address_Checkout", b =>
                 {
-                    b.HasOne("DataAccessLayer.FactoryShoppingModel.AddressType", "addressType")
-                        .WithMany()
-                        .HasForeignKey("AddressTypeID");
+                    b.Property<int>("AddressId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AdMobile");
+
+                    b.Property<string>("AdName");
+
+                    b.Property<string>("AddressTypeID");
+
+                    b.Property<string>("City");
+
+                    b.Property<int>("State");
+
+                    b.Property<string>("Street");
+
+                    b.Property<int>("UserId");
+
+                    b.Property<int>("ZipCode");
+
+                    b.HasKey("AddressId");
+
+                    b.HasIndex("AddressTypeID");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("addresses");
                 });
 
             modelBuilder.Entity("DataAccessLayer.FactoryShoppingModel.Cart", b =>
@@ -285,19 +257,6 @@ namespace FactoryShopping.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("DataAccessLayer.FactoryShoppingModel.OrderDetails", b =>
-                {
-                    b.HasOne("DataAccessLayer.FactoryShoppingModel.Address", "address")
-                        .WithMany()
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("DataAccessLayer.FactoryShoppingModel.Cart", "cart")
-                        .WithMany()
-                        .HasForeignKey("CartId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("DataAccessLayer.FactoryShoppingModel.Product", b =>
                 {
                     b.HasOne("DataAccessLayer.FactoryShoppingModel.Category", "Categories")
@@ -320,6 +279,18 @@ namespace FactoryShopping.Migrations
                         .WithMany()
                         .HasForeignKey("PId")
                         .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("DataAccessLayer.FactoryShoppingModel.User", "Users")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("FactoryShopping.Models.FactoryShoppingModel.Address_Checkout", b =>
+                {
+                    b.HasOne("DataAccessLayer.FactoryShoppingModel.AddressType", "addressType")
+                        .WithMany()
+                        .HasForeignKey("AddressTypeID");
 
                     b.HasOne("DataAccessLayer.FactoryShoppingModel.User", "Users")
                         .WithMany()

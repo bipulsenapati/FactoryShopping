@@ -1,5 +1,6 @@
 ﻿using DataAccessLayer.FactoryShoppingModel;
 using DataContext;
+using FactoryShopping.Models.FactoryShoppingModel;
 using System;
 
 namespace FactoryShopping.Domain.Order
@@ -12,11 +13,11 @@ namespace FactoryShopping.Domain.Order
         {
             _acontext = acontext;
         }
-        public bool saveAddress(Address newAddress)
+        public bool saveAddress(Address_Checkout newAddress)
         {
             try
             {
-                _acontext.address.Add(newAddress);
+                _acontext.addresses.Add(newAddress);
                 _acontext.SaveChanges();
                 return true;
             }

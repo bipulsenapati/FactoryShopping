@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FactoryShopping.Migrations
 {
-    public partial class initials : Migration
+    public partial class newdb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,44 +47,16 @@ namespace FactoryShopping.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "address",
-                columns: table => new
-                {
-                    AddressId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AdName = table.Column<string>(nullable: true),
-                    Street = table.Column<string>(nullable: true),
-                    ZipCode = table.Column<int>(nullable: false),
-                    City = table.Column<string>(nullable: true),
-                    State = table.Column<string>(nullable: true),
-                    AdMobile = table.Column<string>(nullable: true),
-                    AlternetAdMobile = table.Column<string>(nullable: true),
-                    AddressTypeID = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_address", x => x.AddressId);
-                    table.ForeignKey(
-                        name: "FK_address_addressType_AddressTypeID",
-                        column: x => x.AddressTypeID,
-                        principalTable: "addressType",
-                        principalColumn: "AddressTypeID",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
                     PId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: false),
                     Description = table.Column<string>(nullable: true),
-                    Category = table.Column<string>(nullable: true),
-                    Price = table.Column<int>(nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
                     Quantity = table.Column<int>(nullable: false),
                     ImagePath = table.Column<string>(nullable: true),
-                    Detail_Description = table.Column<string>(nullable: true),
                     CategoryId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -105,7 +77,7 @@ namespace FactoryShopping.Migrations
                     UserId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Email = table.Column<string>(nullable: false),
-                    Password = table.Column<string>(nullable: false),
+                    Password = table.Column<string>(maxLength: 100, nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
                     Mobile = table.Column<string>(nullable: true),
@@ -125,6 +97,39 @@ namespace FactoryShopping.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "addresses",
+                columns: table => new
+                {
+                    AddressId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    UserId = table.Column<int>(nullable: false),
+                    AdName = table.Column<string>(nullable: true),
+                    Street = table.Column<string>(nullable: true),
+                    ZipCode = table.Column<int>(nullable: false),
+                    City = table.Column<string>(nullable: true),
+                    State = table.Column<string>(nullable: true),
+                    AdMobile = table.Column<string>(nullable: true),
+                    AlternetAdMobile = table.Column<string>(nullable: true),
+                    AddressTypeID = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_addresses", x => x.AddressId);
+                    table.ForeignKey(
+                        name: "FK_addresses_addressType_AddressTypeID",
+                        column: x => x.AddressTypeID,
+                        principalTable: "addressType",
+                        principalColumn: "AddressTypeID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_addresses_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "cart",
                 columns: table => new
                 {
@@ -132,8 +137,13 @@ namespace FactoryShopping.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     PId = table.Column<int>(nullable: false),
                     UserId = table.Column<int>(nullable: false),
-                    Price = table.Column<int>(nullable: false),
-                    OrderQuantity = table.Column<int>(nullable: false)
+                    Price = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
+                    OrderQuantity = table.Column<int>(nullable: false),
+                    CartDate = table.Column<DateTime>(nullable: false),
+                    Amount = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
+                    ProductName = table.Column<string>(nullable: true),
+                    ProductImage = table.Column<string>(nullable: true),
+                    CartTotal = table.Column<decimal>(type: "decimal(10,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -187,7 +197,8 @@ namespace FactoryShopping.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     PId = table.Column<int>(nullable: false),
                     UserId = table.Column<int>(nullable: false),
-                    Price = table.Column<int>(nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
+                    WishDate = table.Column<DateTime>(nullable: false),
                     WishQuantity = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -207,38 +218,15 @@ namespace FactoryShopping.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "orderDetail",
-                columns: table => new
-                {
-                    OrderId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    CartId = table.Column<int>(nullable: false),
-                    PaymentMode = table.Column<string>(nullable: true),
-                    orderDate = table.Column<DateTime>(nullable: false),
-                    AddressId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_orderDetail", x => x.OrderId);
-                    table.ForeignKey(
-                        name: "FK_orderDetail_address_AddressId",
-                        column: x => x.AddressId,
-                        principalTable: "address",
-                        principalColumn: "AddressId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_orderDetail_cart_CartId",
-                        column: x => x.CartId,
-                        principalTable: "cart",
-                        principalColumn: "CartId",
-                        onDelete: ReferentialAction.Cascade);
-                });
+            migrationBuilder.CreateIndex(
+                name: "IX_addresses_AddressTypeID",
+                table: "addresses",
+                column: "AddressTypeID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_address_AddressTypeID",
-                table: "address",
-                column: "AddressTypeID");
+                name: "IX_addresses_UserId",
+                table: "addresses",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_cart_PId",
@@ -259,16 +247,6 @@ namespace FactoryShopping.Migrations
                 name: "IX_feedback_UserId",
                 table: "feedback",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_orderDetail_AddressId",
-                table: "orderDetail",
-                column: "AddressId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_orderDetail_CartId",
-                table: "orderDetail",
-                column: "CartId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoryId",
@@ -294,19 +272,16 @@ namespace FactoryShopping.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "feedback");
-
-            migrationBuilder.DropTable(
-                name: "orderDetail");
-
-            migrationBuilder.DropTable(
-                name: "wishlist");
-
-            migrationBuilder.DropTable(
-                name: "address");
+                name: "addresses");
 
             migrationBuilder.DropTable(
                 name: "cart");
+
+            migrationBuilder.DropTable(
+                name: "feedback");
+
+            migrationBuilder.DropTable(
+                name: "wishlist");
 
             migrationBuilder.DropTable(
                 name: "addressType");
