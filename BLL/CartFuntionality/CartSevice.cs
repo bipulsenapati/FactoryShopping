@@ -18,7 +18,7 @@ namespace BLL.CartFuntionality
             var existingCart = GetCartByProductId(cart.PId, cart.UserId);
             if (existingCart == null)
             {
-                _cartcontext.cart.Add(cart);
+                _cartcontext.Carts.Add(cart);
                 _cartcontext.SaveChanges();
             }
             else
@@ -33,13 +33,13 @@ namespace BLL.CartFuntionality
 
         public void DeleteCart(int cartId)
         {
-            _cartcontext.cart.Remove(GetCart(cartId));
+            _cartcontext.Carts.Remove(GetCart(cartId));
             _cartcontext.SaveChanges();
         }
 
         public Cart GetCart(int cartId)
         {
-            return _cartcontext.cart.Find(cartId);
+            return _cartcontext.Carts.Find(cartId);
         }
 
         public void EmptyCart(int userId)
@@ -47,13 +47,13 @@ namespace BLL.CartFuntionality
             //Delete all rows associted to userId
             var carts = GetCarts(userId);
 
-            _cartcontext.cart.RemoveRange(carts);
+            _cartcontext.Carts.RemoveRange(carts);
             _cartcontext.SaveChanges();
         }
 
         public IEnumerable<Cart> GetCarts(int userId)
         {
-            return _cartcontext.cart.Where(c => c.UserId == userId);
+            return _cartcontext.Carts.Where(c => c.UserId == userId);
         }
 
         public void UpdateQuantityToCart(int cartId, int quantity)
@@ -66,13 +66,13 @@ namespace BLL.CartFuntionality
 
         public void UpdateCart(Cart cart)
         {
-            _cartcontext.cart.Update(cart);
+            _cartcontext.Carts.Update(cart);
             _cartcontext.SaveChanges();
         }
 
         public Cart GetCartByProductId(int productId, int userId)
         {
-            return _cartcontext.cart.SingleOrDefault(c => c.UserId == userId && c.PId == productId);
+            return _cartcontext.Carts.SingleOrDefault(c => c.UserId == userId && c.PId == productId);
         }
 
 

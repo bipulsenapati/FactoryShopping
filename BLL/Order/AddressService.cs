@@ -17,7 +17,7 @@ namespace FactoryShopping.Domain.Order
         {
             try
             {
-                _acontext.addresses.Add(newAddress);
+                _acontext.Addresses.Add(newAddress);
                 _acontext.SaveChanges();
                 return true;
             }

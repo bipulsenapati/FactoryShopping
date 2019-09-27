@@ -31,7 +31,7 @@ namespace FactoryShopping
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<FactoryShoppingDataContext>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("FactoryShopping")));
+            options.UseSqlServer(Configuration["ConnectionStrings"], b => b.MigrationsAssembly("FactoryShopping")));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
