@@ -10,10 +10,7 @@ namespace DataContext
         public FactoryShoppingDataContext() { }
         public FactoryShoppingDataContext(DbContextOptions options) : base(options)
         { }
-
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
-        //   optionsBuilder.UseSqlServer(@"Server=XIPL9397\SQLEXPRESS;Database=Vela_Engineer;Trusted_Connection=True;");
-
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -26,7 +23,7 @@ namespace DataContext
         public DbSet<Cart> Carts { get; set; }
        // public DbSet<OrderDetails> orderDetail { get; set; }
         public DbSet<AddressType> AddressTypes { get; set; }
-        public DbSet<Feedback> Feedbacks { get; set; }
+        public DbSet<Feedback> Feedback { get; set; }
         public DbSet<Wishlist> Wishlists { get; set; }
         public DbSet<Address_Checkout> Addresses { get; set; }
     }
