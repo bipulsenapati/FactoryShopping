@@ -4,14 +4,16 @@ using DataContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FactoryShopping.Migrations
 {
     [DbContext(typeof(FactoryShoppingDataContext))]
-    partial class FactoryShoppingDataContextModelSnapshot : ModelSnapshot
+    [Migration("20190929160552_mobiledATATYPE")]
+    partial class mobiledATATYPE
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -215,30 +217,6 @@ namespace FactoryShopping.Migrations
                     b.ToTable("addresses");
                 });
 
-            modelBuilder.Entity("FactoryShopping.Models.FactoryShoppingModel.OrderDetails", b =>
-                {
-                    b.Property<int>("OrderId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("OrderedQuantity");
-
-                    b.Property<int>("PId");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(10,2)");
-
-                    b.Property<int>("UserId");
-
-                    b.HasKey("OrderId");
-
-                    b.HasIndex("PId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("myOrders");
-                });
-
             modelBuilder.Entity("DataAccessLayer.FactoryShoppingModel.Cart", b =>
                 {
                     b.HasOne("DataAccessLayer.FactoryShoppingModel.Product", "Products")
@@ -296,19 +274,6 @@ namespace FactoryShopping.Migrations
 
             modelBuilder.Entity("FactoryShopping.Models.FactoryShoppingModel.Address_Checkout", b =>
                 {
-                    b.HasOne("DataAccessLayer.FactoryShoppingModel.User", "Users")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("FactoryShopping.Models.FactoryShoppingModel.OrderDetails", b =>
-                {
-                    b.HasOne("DataAccessLayer.FactoryShoppingModel.Product", "Products")
-                        .WithMany()
-                        .HasForeignKey("PId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("DataAccessLayer.FactoryShoppingModel.User", "Users")
                         .WithMany()
                         .HasForeignKey("UserId")

@@ -7,21 +7,22 @@ using System.Text;
 
 namespace FactoryShopping.Models.FactoryShoppingModel
 {
-    public class OrderProductDetails
+    public class OrderDetails
     {
         [Key]
-        public int OrderProductId { get; set; }
-
-        [ForeignKey("OrderDetail")]
         public int OrderId { get; set; }
-        //public virtual OrderDetails orderDetail { get; set; }
+
         [ForeignKey("Product")]
         public int PId { get; set; }
 
         public virtual Product Products { get; set; }
 
+        [ForeignKey("User")]
+        public int UserId { get; set; }
+        public virtual User Users { get; set; }
+
         [Column(TypeName = "decimal(10,2)")]
-        public decimal MyProperty { get; set; }
+        public decimal Price { get; set; }
 
         public int OrderedQuantity { get; set; }
 

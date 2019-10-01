@@ -10,6 +10,7 @@ namespace BLL.UserAccount
     {
         int checkUser(Login user); //post
         int getUserId(Login val);
-
+        //int getUserIdviaGoogle(User val);
+        int googleLogin(Login guestUser);
     }
 }

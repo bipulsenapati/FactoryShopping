@@ -55,8 +55,19 @@ namespace FactoryShopping.Controllers
             else
             return BadRequest(new { message = "Username & Password is Incorrect"});
          }
-
-
+        [HttpPost("guestbyGoogle")]
+        public IActionResult velaByGoogle([FromBody] Login input)
+        {
+            var roleId = loginService.googleLogin(input);
+            var user = loginService.getUserId(input);
+            if (roleId != 0)
+            {
+                var tokenstring = GenerateJSONWebToken(roleId);
+                return Ok(new { token = tokenstring, role = roleId, userId = user });
+            }
+            else
+                return BadRequest(new { message = "Username & Password is Incorrect" });
+        }
 
        
     

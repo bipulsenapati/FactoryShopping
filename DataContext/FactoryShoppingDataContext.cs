@@ -25,9 +25,10 @@ namespace DataContext
         public DbSet<Role> Roles { get; set; }
         public DbSet<Cart> cart { get; set; }
        // public DbSet<OrderDetails> orderDetail { get; set; }
-        public DbSet<AddressType> addressType { get; set; }
+        //public DbSet<AddressType> addressType { get; set; }
         public DbSet<Feedback> feedback { get; set; }
         public DbSet<Wishlist> wishlist { get; set; }
         public DbSet<Address_Checkout> addresses { get; set; }
+        public DbSet<OrderDetails> myOrders { get; set; }
     }
 }

@@ -33,12 +33,10 @@ namespace BLL.UserAccount
                 {
                     throw ex;
                 }
-
             }
             else
                 return 0;
         }
-
         public int getUserId(Login val)
         {
             var udata = (from user in db.Users
@@ -47,5 +45,22 @@ namespace BLL.UserAccount
             return udata;
         }
 
+        //public int getUserIdviaGoogle(User val)
+        //{
+        //    var udata = (from user in db.Users
+        //                 where user.Email == val.Email
+        //                 select user.UserId).FirstOrDefault();
+        //    return udata;
+        //}
+        public int googleLogin(Login guestUser)
+        {
+            var validEmail = db.Users.Where(x => x.Email == guestUser.Email).FirstOrDefault();
+            if (validEmail != null)
+            {
+                return validEmail.RoleId;
+            }
+            else
+                return 0;
+        }
     }
 }

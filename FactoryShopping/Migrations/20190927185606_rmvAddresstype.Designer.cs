@@ -4,20 +4,34 @@ using DataContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FactoryShopping.Migrations
 {
     [DbContext(typeof(FactoryShoppingDataContext))]
-    partial class FactoryShoppingDataContextModelSnapshot : ModelSnapshot
+    [Migration("20190927185606_rmvAddresstype")]
+    partial class rmvAddresstype
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("DataAccessLayer.FactoryShoppingModel.AddressType", b =>
+                {
+                    b.Property<string>("AddressTypeID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Type");
+
+                    b.HasKey("AddressTypeID");
+
+                    b.ToTable("addressType");
+                });
 
             modelBuilder.Entity("DataAccessLayer.FactoryShoppingModel.Cart", b =>
                 {
@@ -194,49 +208,25 @@ namespace FactoryShopping.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AdMobile");
+                    b.Property<int>("AdMobile");
 
                     b.Property<string>("AdName");
 
                     b.Property<string>("City");
 
-                    b.Property<string>("State");
+                    b.Property<int>("State");
 
                     b.Property<string>("Street");
 
                     b.Property<int>("UserId");
 
-                    b.Property<string>("ZipCode");
+                    b.Property<int>("ZipCode");
 
                     b.HasKey("AddressId");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("addresses");
-                });
-
-            modelBuilder.Entity("FactoryShopping.Models.FactoryShoppingModel.OrderDetails", b =>
-                {
-                    b.Property<int>("OrderId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("OrderedQuantity");
-
-                    b.Property<int>("PId");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(10,2)");
-
-                    b.Property<int>("UserId");
-
-                    b.HasKey("OrderId");
-
-                    b.HasIndex("PId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("myOrders");
                 });
 
             modelBuilder.Entity("DataAccessLayer.FactoryShoppingModel.Cart", b =>
@@ -296,19 +286,6 @@ namespace FactoryShopping.Migrations
 
             modelBuilder.Entity("FactoryShopping.Models.FactoryShoppingModel.Address_Checkout", b =>
                 {
-                    b.HasOne("DataAccessLayer.FactoryShoppingModel.User", "Users")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("FactoryShopping.Models.FactoryShoppingModel.OrderDetails", b =>
-                {
-                    b.HasOne("DataAccessLayer.FactoryShoppingModel.Product", "Products")
-                        .WithMany()
-                        .HasForeignKey("PId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("DataAccessLayer.FactoryShoppingModel.User", "Users")
                         .WithMany()
                         .HasForeignKey("UserId")
