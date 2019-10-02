@@ -43,10 +43,11 @@ namespace BLL.UserAccount
             return _fcontext.Users.ToList();
         }
 
-        public IEnumerable<User> getUserById(int id)
+        public User getUserById(int id)
         {
-            var checkid = from d in _fcontext.Users where d.UserId == id select d;
-            return checkid;
+            return _fcontext.Users.SingleOrDefault(u => u.UserId == id);
+            //var checkid = from d in _fcontext.Users where d.UserId == id select d;
+            //return checkid;
         }
 
         public bool saveUser(User newuser)

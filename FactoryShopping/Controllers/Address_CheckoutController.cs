@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using DataContext;
+using FactoryShopping.Models.FactoryShoppingModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using DataContext;
-using FactoryShopping.Models.FactoryShoppingModel;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace FactoryShopping.Controllers
 {
@@ -30,44 +30,23 @@ namespace FactoryShopping.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Address_Checkout>> GetAddress_Checkout(int id)
         {
-            var address_Checkout = await _context.addresses.FindAsync(id);
+            var address_Checkout = _context.addresses.Where(x => x.UserId == id).FirstOrDefault();
 
             if (address_Checkout == null)
             {
                 return NotFound();
             }
 
-            return address_Checkout;
+            return Ok(address_Checkout);
         }
 
         // PUT: api/Address_Checkout/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutAddress_Checkout(int id, Address_Checkout address_Checkout)
-        {
-            if (id != address_Checkout.AddressId)
-            {
-                return BadRequest();
-            }
-
+        [HttpPut()]
+        public bool PutAddress_Checkout(Address_Checkout address_Checkout)
+        {           
             _context.Entry(address_Checkout).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!Address_CheckoutExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
+            _context.SaveChanges();
+            return true;
         }
 
         // POST: api/Address_Checkout

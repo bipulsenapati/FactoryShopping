@@ -32,7 +32,7 @@ namespace FactoryShopping.Controllers
 
         // GET: api/User/id
         [HttpGet("{id}")]
-        public IEnumerable<User> Get(int id)
+        public User Get(int id)
         {
             return userService.getUserById(id);
         }

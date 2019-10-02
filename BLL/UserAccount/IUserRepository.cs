@@ -11,7 +11,7 @@ namespace BLL.UserAccount
 
         List<User> getAllUsers(); // Get all users 
 
-        IEnumerable<User> getUserById(int id); // get by id
+        User getUserById(int id); // get by id
 
         bool deleteuserbyId(int id); //Delete user by id 
 
